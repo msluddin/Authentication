@@ -1,99 +1,64 @@
-import {
-  Image,
-  StyleSheet,
-  Text,
-  useWindowDimensions,
-  View,
-} from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton/CustomButton';
+import SocialSignInButtons from '../components/SocialButtons/SocialSignInButtons';
+import { useNavigation } from '@react-navigation/native';
 
 const SigninScreen = () => {
-  const { height } = useWindowDimensions();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigation = useNavigation();
 
   const onSignInPressed = () => {
-    console.warn('Sign In');
+    // console.warn('Sign In');
+    navigation.navigate('Home');
   };
 
   const onForgotPasswordPressed = () => {
-    console.warn('Forgot password?');
-  };
-
-  const onSignInFacebook = () => {
-    console.warn('onSignInFacebook');
-  };
-
-  const onSignInGoogle = () => {
-    console.warn('onSignInGoogle');
-  };
-
-  const onSignInApple = () => {
-    console.warn('onSignInApple');
+    // console.warn('Forgot password?');
+    navigation.navigate('ForgotPassword');
   };
 
   const onSignUpPress = () => {
-    console.warn('onSignUpPress');
+    //console.warn('onSignUpPress');
+    navigation.navigate('SignUp');
   };
 
   return (
-    <View style={styles.root}>
-      <Image
-        source={{ uri: 'https://links.papareact.com/wru' }}
-        style={[styles.logo, { height: height * 0.3 }]}
-        resizeMode="contain"
-      />
-      <Text style={styles.text}>AUTHENTICATION</Text>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <View style={styles.root}>
+        <Text style={styles.title}>SignIn</Text>
+        {/* Input Area */}
+        <CustomInput
+          placeholder="Username"
+          value={username}
+          setValue={setUsername}
+        />
+        <CustomInput
+          placeholder="Password"
+          value={password}
+          setValue={setPassword}
+          secureTextEntry
+        />
 
-      {/* Input Area */}
-      <CustomInput
-        placeholder="Username"
-        value={username}
-        setValue={setUsername}
-      />
-      <CustomInput
-        placeholder="Password"
-        value={password}
-        setValue={setPassword}
-        secureTextEntry
-      />
+        <CustomButton text="Sign In" onPress={onSignInPressed} />
 
-      <CustomButton text="Sign In" onPress={onSignInPressed} />
+        <CustomButton
+          text="Forgot password ?"
+          onPress={onForgotPasswordPressed}
+          type="TERTIARY"
+        />
 
-      <CustomButton
-        text="Forgot password ?"
-        onPress={onForgotPasswordPressed}
-        type="TERTIARY"
-      />
-
-      {/* Input Social Area */}
-      <CustomButton
-        text="Sign In With Facebook"
-        onPress={onSignInFacebook}
-        bgColor="#E7EAF4"
-        fgColor="#4765A9"
-      />
-      <CustomButton
-        text="Sign In With Google"
-        onPress={onSignInGoogle}
-        bgColor="#FAE9EA"
-        fgColor="#DD4D44"
-      />
-      <CustomButton
-        text="Sign In With Apple"
-        onPress={onSignInApple}
-        bgColor="#e3e3e3"
-        fgColor="#363636"
-      />
-
-      <CustomButton
-        text="Don't have an account ?"
-        onPress={onSignUpPress}
-        type="TERTIARY"
-      />
-    </View>
+        {/* Input Social Area */}
+        <SocialSignInButtons />
+        <CustomButton
+          text="Don't have an account ?"
+          onPress={onSignUpPress}
+          type="TERTIARY"
+        />
+      </View>
+    </ScrollView>
   );
 };
 
@@ -105,13 +70,8 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 10,
   },
-  logo: {
-    width: '70%',
-    maxWidth: 300,
-    maxHeight: 200,
-  },
-  text: {
-    fontWeight: 'bold',
+  title: {
     fontSize: 24,
+    fontWeight: 'bold',
   },
 });
