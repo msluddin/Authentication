@@ -3,13 +3,15 @@ import React, { useState } from 'react';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import { useForm } from 'react-hook-form';
 
 const ConfirmEmailScreen = () => {
-  const [code, setCode] = useState('');
   const navigation = useNavigation();
+  const { control, handleSubmit } = useForm();
 
-  const onConfirmPressed = () => {
-    console.warn('Confirm');
+  const onConfirmPressed = (data) => {
+    console.warn('data');
+    navigation.navigate('Deshboard');
   };
 
   const onResendPress = () => {
@@ -27,12 +29,13 @@ const ConfirmEmailScreen = () => {
         <Text style={styles.title}>Confirm your Email</Text>
         {/* Input Area */}
         <CustomInput
+          name="code"
+          control={control}
           placeholder="Enter your confirmation code"
-          value={code}
-          setValue={setCode}
+          rules={{ required: 'Confirmation code is required' }}
         />
 
-        <CustomButton text="Confirm" onPress={onConfirmPressed} />
+        <CustomButton text="Confirm" onPress={handleSubmit(onConfirmPressed)} />
 
         <CustomButton
           text="Resend code"

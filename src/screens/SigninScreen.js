@@ -1,18 +1,23 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import React, { useState } from 'react';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton/CustomButton';
 import SocialSignInButtons from '../components/SocialButtons/SocialSignInButtons';
 import { useNavigation } from '@react-navigation/native';
+import { useForm, Controller } from 'react-hook-form';
 
 const SigninScreen = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const navigation = useNavigation();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const onSignInPressed = () => {
+  const onSignInPressed = (data) => {
     // console.warn('Sign In');
-    navigation.navigate('Home');
+    console.log(data);
+    navigation.navigate('Deshboard');
   };
 
   const onForgotPasswordPressed = () => {
@@ -31,18 +36,26 @@ const SigninScreen = () => {
         <Text style={styles.title}>SignIn</Text>
         {/* Input Area */}
         <CustomInput
-          placeholder="Username"
-          value={username}
-          setValue={setUsername}
+          name="username"
+          placeholder="username"
+          control={control}
+          rules={{ required: 'Username is required' }}
         />
         <CustomInput
-          placeholder="Password"
-          value={password}
-          setValue={setPassword}
+          name="password"
+          placeholder="password"
+          control={control}
           secureTextEntry
+          rules={{
+            required: 'Password is required',
+            minLength: {
+              value: 5,
+              message: 'Password should be minimum 5 characters long',
+            },
+          }}
         />
 
-        <CustomButton text="Sign In" onPress={onSignInPressed} />
+        <CustomButton text="Sign In" onPress={handleSubmit(onSignInPressed)} />
 
         <CustomButton
           text="Forgot password ?"

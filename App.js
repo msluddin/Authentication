@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ConfirmEmailScreen from './src/screens/ConfirmEmailScreen';
+import DeshboardScreen from './src/screens/DeshboardScreen';
 import ForgotPasswordScreen from './src/screens/ForgotPasswordScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import NewPasswordScreen from './src/screens/NewPasswordScreen';
@@ -19,6 +20,7 @@ function App() {
         <Stack.Screen name="ConfirmEmail" component={ConfirmEmailScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
         <Stack.Screen name="NewPassword" component={NewPasswordScreen} />
+        <Stack.Screen name="Deshboard" component={DeshboardScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

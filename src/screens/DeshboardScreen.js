@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import {
   Image,
   SafeAreaView,
@@ -8,19 +7,11 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import React, { useLayoutEffect } from 'react';
-import SigninScreen from './SigninScreen';
-import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { StatusBar } from 'expo-status-bar';
 
-const HomeScreen = () => {
+const DeshboardScreen = () => {
   const { height } = useWindowDimensions();
-  const navigation = useNavigation();
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    });
-  }, []);
   return (
     <SafeAreaView>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -31,8 +22,8 @@ const HomeScreen = () => {
             resizeMode="contain"
           />
           <Text style={styles.text}>AUTHENTICATION</Text>
+          <Text style={styles.text}>Hello World</Text>
         </View>
-        <SigninScreen />
 
         <StatusBar style="auto" />
       </ScrollView>
@@ -40,7 +31,7 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default DeshboardScreen;
 
 const styles = StyleSheet.create({
   container: {
